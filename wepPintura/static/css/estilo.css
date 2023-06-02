@@ -1,0 +1,177 @@
+@import url(bootstrap/bootstrap.min.css);
+
+/* Estilos generales del body */
+body {
+    background: radial-gradient(
+        circle at center,
+        rgb(252, 196, 105),
+        rgba(245, 207, 145),
+        rgb(0, 0, 0)
+    );
+    background-attachment: fixed;
+}
+
+/* Estilos generales del main */
+main {
+    min-height: 100vh;
+}
+
+/* Estilos del logo */
+.img-logo {
+    width: 50px;
+}
+
+/* Contenedor principal del index */
+.container-s {
+    margin-top: 30px;
+    width: 50%;
+}
+
+/* Estilos del título h1 */
+h1 {
+    text-align: center;
+}
+
+/* Estilos del subtítulo h2 */
+h2 {
+    text-align: left;
+}
+
+/* Estilos generales de los párrafos */
+p {
+    margin: 0;
+}
+
+/* Estilos para el fondo del título h1 */
+.h1-fondo {
+    font-size: 60px;
+    background-color: black;
+    border-radius: 10px;
+    color: rgb(221, 220, 220);
+}
+
+/* Estilos para el fondo del subtítulo h2 */
+.h2-fondo {
+    font-size: 40px;
+    background-color: black;
+    border-radius: 10px;
+    color: rgb(221, 220, 220);
+    margin-bottom: 20px;
+}
+
+/* Estilos del contenedor de detalle */
+.container-0 {
+    padding: 20px;
+    background-color: rgb(233, 233, 233);
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 80%;
+}
+
+/* Estilos del contenedor M */
+.container-M {
+    padding: 20px;
+    background-color: rgb(233, 233, 233);
+    margin-top: 20px;
+    width: 50%;
+    border-radius: 10px;
+}
+
+/* Estilos del contenedor mantenedor */
+.container-mantenedor {
+    padding: 10px 20px;
+    background-color: rgb(233, 233, 233);
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+/* Estilos para el valor del precio */
+.a-precio {
+    text-align: left;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+/* Estilos del botón pagar */
+.boton-pagar {
+    width: 50%;
+}
+
+/* Estilos del botón enviar */
+.boton-Enviar {
+    width: 50%;
+}
+
+/* Estilos para centrar elementos */
+.centrar {
+    text-align: center;
+}
+
+/* Estilos del footer */
+.footer {
+    background: black;
+    z-index: 1000;
+    bottom: 0;
+    padding: 20px 0px;
+}
+
+/* Estilos del mapa del formulario */
+.mapaS {
+    padding: 10px;
+    margin-top: 20px;
+}
+
+/* Estilos para las columnas del cartan gant */
+.col-4 {
+    margin-bottom: 20px;
+}
+
+/* Estilos para el carrito */
+.numerador {
+    background-color: rgba(255, 0, 0, 0.5);
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+/* Transición de la cortina */
+.cortina {
+    transition: 1s;
+}
+
+/* Estilos de la cortina cuando está abierta */
+.cortina-abierta {
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+}
+
+/* Estilos generales del formulario flotante */
+.form-floating {
+    margin: 20px 0px;
+}
+
+/* Estilos para el carousel-inner */
+.carousel-inner {
+    border-radius: 10px;
+}
+
+/* Estilos de las tarjetas y su sombra */
+.pointer-black {
+    transition: 0.5s;
+    border: 0px outset black;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 4px;
+}
+
+/* Estilos de las tarjetas al pasar el cursor */
+.pointer-black:hover {
+    transform: scale(1.1);
+    z-index: 1;
+    cursor: pointer;
+}

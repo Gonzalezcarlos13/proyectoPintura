@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+        <link rel="stylesheet" href="{% static 'css/estilos/index.css' %}">
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+            {% block css %}
+
+            {% endblock css %}
+        <title>WepPintura</title>
+    </head>
+
+    <body>
+        <header>
+            <!-- En este apartado se encuentra la base de la pagina web, donde estara toda la informacion principal -->
+            <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="">
+                        <img class="img-logo" src="{% static 'img/grupo0.png' %}" alt="">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="mynavbar">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url 'IND' %}">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'FOR' %}">Formulario</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'GAL' %}">Galeria</a>
+                            </li>
+                            {% if user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'MAN' %}">Mantenedor</a>
+                                </li>
+                            {% else %}
+                            {% endif %}
+                        </ul>
+                        <div class="d-flex">
+                            {% if user.is_authenticated %}
+                                <div class="p-2">
+                                    <a class="nav-link" href="#" style="text-decoration: none;color: #ffffff8c;">Bienvenido: {{user.username}}</a>
+                                </div>
+                            {% else %}
+                            {% endif %}
+                            <div class="p-2">
+                                <span class="numerador">
+                                    <input id="numero-escondido" type="text" style="display: none;" value="0">
+                                    <p id="numero-carro" style="text-align: center;margin-bottom: 50%;color: white;">
+                                        0
+                                    </p>
+                                </span>
+                                <a href="{% url 'CAR' %}"><button style="background-color: transparent;"><img src="{% static 'img/shopping-cart-2-line.png' %}" alt="" style="height: 35px;"></button></a>
+                            </div>
+                            {% if user.is_authenticated %}
+                                <div class="p-2">
+                                    <a href="{% url 'CERRAR' %}"><button style="background-color: transparent;"><img src="{% static 'img/cerrar_sesion.png' %}" alt="" style="height: 35px;"></button></a>
+                                </div>
+                            {% else %}
+                                <div class="p-2">
+                                    <a href="#" data-bs-toggle="collapse" data-bs-target="#loginCollapse" aria-expanded="false" aria-controls="loginCollapse" id="btn-login" onclick="AbrirCortina()"><button style="background-color: transparent;"><img src="{% static 'img/user.png' %}" alt="" style="height: 35px;"></button></a>
+                                    <!--<a href="{% url 'LOG' %}"><button style="background-color: transparent;"><img src="{% static 'img/user.png' %}" alt="" style="height: 35px;"></button></a>-->
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- En este div se encuentra el inicio de sesion y sus direcciones -->
+            <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -80%); z-index: 4;">
+                <div class="collapse" id="loginCollapse">
+                    <div class="container collapse-form">
+                        <div class="card">
+                            <div style="text-align: right; margin-right: 10px;">
+                                <span style="cursor: pointer;" onclick="CerrarCortina()" data-bs-toggle="collapse" data-bs-target="#loginCollapse">X</span>
+                            </div>
+                            <div class="card-body" style="padding: 0px 20px 20px 20px; width: 600px;">
+                                <form action="{% url 'LOG' %}" method="post">
+                                    {% csrf_token %}
+                                    <h1 class="h3 mb-3 fw-normal">Iniciar sesion</h1>
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" placeholder="User" id="usuario" name="txtUser" required>
+                                        <label for="usuario">Usuario</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control" id="contraseña" placeholder="Password" name="txtPass" required>
+                                        <label for="contraseña">Contraseña</label>
+                                    </div>
+                                    <div class="checkbox mb-3">
+                                        <label>
+                                            <input type="checkbox" value="remember-me"> Recordar
+                                        </label>
+                                    </div>
+                                    <input type="submit" class="w-100 btn btn-lg btn-primary" type="submit" value="Iniciar Sesion">
+                                    <a href="{% url 'REG' %}" style="text-align: center;"><p class="mt-3 mb-3">Registrarse</p></a>
+                                    <!--<button class="w-100 btn btn-lg btn-primary" type="submit" onclick="IniciarSesion()">Iniciar Sesion</button>-->
+                                    <!--<button class="w-100 btn btn-lg btn-primary" type="submit" onclick="validarcorreo()">Validar Datos</button>-->
+                                </form>
+                                <p class="mt-3 mb-3 text-muted text-center">&copy; 2023 Todo los derechos reservados</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <!-- este div llamado cortina es el efecto que se logra dar a la hora de apretar el boton para iniciar sesion-->
+            <div class="cortina" id="cortina">
+            </div>
+            <section>
+                {% block contenido %}
+
+                {% endblock contenido %}
+            </section>
+        </main>
+        <footer>
+            <div class="mt-5 p-3 bg-dark text-white text-center">
+                <p>Footer</p>
+            </div>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="{% static 'js/script.js' %}"></script>
+        <script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
+    </body>
+</html>

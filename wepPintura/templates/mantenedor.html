@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block contenido %}
+        <!-- Lugar donde se podra ingresar un producto -->
+    <div style="position: fixed; top: 65%; left: 50%; transform: translate(-50%, -80%); z-index: 4;">
+        {% for item in pinturas %}
+            {% if item.usuario.username == user.username %}
+                <div class="collapse" id="modificarCollapse{{item.idPintura}}">
+                    <div class="container collapse-form">
+                        <div class="card">
+                            <div style="text-align: right; margin-right: 10px;">
+                                <span style="cursor: pointer;" onclick="CerrarCortina()" data-bs-toggle="collapse" data-bs-target="#modificarCollapse{{item.idPintura}}">X</span>
+                            </div>
+                            <div class="card-body" style="padding: 0px 20px 20px 20px; width: 900px;">
+                                <div class="container-fluid container-mantenedor">
+                                    <form action="{% url 'MODIFICAR' item.idPintura %}" id="form_modificar{{item.idPintura}}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h1 class="h2-fondo">Modificar</h1>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="m_nombre{{item.idPintura}}">Nombre: </label>
+                                                    <input type="text" class="form-control" id="m_nombre{{item.idPintura}}" placeholder="Nombre" name="m_nombre" required="" value="{{item.nombre}}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="m_cbxArtista{{item.idPintura}}">Artista: </label>
+                                                    <select class="form-select" name="m_cbxArtista" id="m_cbxArtista{{item.idPintura}}" required="">
+                                                        {% for item2 in artistas %}
+                                                            {% if item2.nombre == item.artista.nombre %}
+                                                                <option value="{{item2.nombre}}" selected>{{item2.nombre}}</option> 
+                                                            {% else %}
+                                                                <option value="{{item2.nombre}}">{{item2.nombre}}</option>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="m_precio{{item.idPintura}}">Precio: </label>
+                                                    <input type="text" class="form-control" id="m_precio{{item.idPintura}}" placeholder="Precio" name="m_precio" required="" value="{{item.precio}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="m_cantidad{{item.idPintura}}">Cantidad: </label>
+                                                    <input type="text" class="form-control" id="m_cantidad{{item.idPintura}}" placeholder="Cantidad" name="m_cantidad" required="" value="{{item.cantidad}}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="m_cbxCategoria{{item.idPintura}}">Categoria: </label>
+                                                    <select class="form-select" name="m_cbxCategoria" id="m_cbxCategoria{{item.idPintura}}" required="">
+                                                        {% for item2 in categorias %}
+                                                            {% if item2.nombre == item.categoria.nombre %}
+                                                                <option value="{{item2.nombre}}" selected>{{item2.nombre}}</option> 
+                                                            {% else %}
+                                                                <option value="{{item2.nombre}}">{{item2.nombre}}</option>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="m_foto{{item.idPintura}}">Foto: </label>
+                                                    <input type="file" class="form-control" id="m_foto{{item.idPintura}}" name="m_foto">
+                                                    <a href="{{item.foto.url}}">{{item.foto.url}}</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="mb-3 mt-3">
+                                                    <label for="m_descripcion{{item.idPintura}}">Descripcion: </label>
+                                                    <textarea class="form-control" rows="5" id="m_descripcion{{item.idPintura}}" name="m_descripcion" required="">{{item.descripcion}}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 centrar">
+                                                <input type="button" class="w-100 btn btn-lg btn-primary" value="Modificar" onclick="modificarPintura({{item.idPintura}})">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                <div class="container container-mantenedor">
+                    <h1 class="h1-fondo">Ingrese Una Pintura</h1>
+                    <form action="{% url 'MAN' %}" id="form_agregar" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="hiddenUser" value="{{user.username}}">
+                        <div class="mb-3">
+                            <label for="nombre">Nombre: </label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre" required="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cbxArtista">Artista: </label>
+                            <select class="form-select" name="cbxArtista" id="cbxArtista"  required="">
+                                {% for item in artistas %}
+                                    <option value="{{item.nombre}}">{{item.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="precio">precio: </label>
+                            <input type="text" class="form-control" id="precio" placeholder="Precio" name="precio" required="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cantidad">Cantidad: </label>
+                            <input type="text" class="form-control" id="cantidad" placeholder="Cantidad" name="cantidad" required="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cbxCategoria">Categoria: </label>
+                            <select class="form-select" name="cbxCategoria" id="cbxCategoria"  required="">
+                                {% for item in categorias %}
+                                    <option value="{{item.nombre}}">{{item.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="foto">Foto: </label>
+                            <input type="file" class="form-control" id="foto" name="foto">
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="descripcion">Descripcion:</label>
+                            <textarea class="form-control" rows="5" id="Descripcion" name="descripcion" required=""></textarea>
+                        </div>
+                        <div class="centrar"">
+                            <input class=" btn btn-primary boton-Enviar" type="button" value="Crear" onclick="crearPintura()" >
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="container-fluid container-mantenedor">
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 class="h1-fondo">Lista De Pintura</h1>
+                        </div>
+                        {% for item in pinturas %}
+                            {% if item.usuario.username == user.username %}
+                                <div class="col-12">
+                                    <div class="card p-2">
+                                        <div class="table-responsive">
+                                            <table class="table table-responsive">
+                                                <thead class="table-dark">
+                                                    <tr>
+                                                    <th>ID</th>
+                                                    <th>Nombre</th>
+                                                    <th>Categoria</th>
+                                                    <th>Artista</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Precio</th>
+                                                    <th>Imagen</th>
+                                                    <th>Accion</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                    <td style="width: 3%">{{item.idPintura}}</td>
+                                                    <td style="width: 12%">{{item.nombre}}</td>
+                                                    <td style="width: 10%">{{item.categoria.nombre}}</td>
+                                                    <td style="width: 15%">{{item.artista.nombre}}</td>
+                                                    <td style="width: 5%">{{item.cantidad}}</td>
+                                                    <td style="width: 13%">{{item.precio}}</td>
+                                                    <td style="width: 27%;"><img src="{{item.foto.url}}" alt="Card image" style="object-fit: cover; width: 100%"></td>
+                                                    <td style="width: 15%">
+                                                        <div class="form-group">
+                                                            <a href="#" data-bs-toggle="collapse" data-bs-target="#modificarCollapse{{item.idPintura}}" aria-expanded="false" aria-controls="modificarCollapse" id="btn-login" onclick="AbrirCortina()" style="text-decoration: none;"><input class="form-control btn-warning m-2" type="button" value="Modificar"></a>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input class="form-control btn-danger m-2" type="button" value="Eliminar" onclick="eliminarPintura('{% url 'ELIMINAR_PIN' item.idPintura %}')">
+                                                        </div>
+                                                    </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block contenido %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="container-fluid container-mantenedor">
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 class="h1-fondo">Carrito de compras</h1>
+                        </div>
+                        {% for item in pinturas %}
+                            {% if item.usuario.username == user.username %}
+                                <div class="col-12">
+                                    <div class="card p-2">
+                                        <div class="table-responsive p-2">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Imagen</th>
+                                                        <th>Nombre</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Precio</th>
+                                                        <th>Acción</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width:5%; font-size: 26px"><strong>#{{item.idPintura}}</strong></td>
+                                                        <td style="width:25%"><img src="{{item.foto.url}}" alt="Card image" style="object-fit: cover; width: 100%;"></td>
+                                                        <td style="width:30%">{{item.nombre}}</td>
+                                                        <td style="width:12%"><button onclick="decrementValue('{{item.idPintura}}')">-</button><input type="text" value="{{item.cantidad}}" id="stepperInput{{item.idPintura}}" style="width:40px; text-align: center" readonly><button onclick="incrementValue('{{item.idPintura}}')">+</button></td>
+                                                        <td style="width:18%">{{item.precio}}</td>
+                                                        <td style="width:10%">
+                                                            <div class="form-group">
+                                                                <input class="form-control btn-danger m-2" type="button" value="Eliminar" onclick="eliminarPintura('{% url 'ELIMINAR_PIN' item.idPintura %}')">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}

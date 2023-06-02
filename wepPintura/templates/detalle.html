@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+{% block contenido %}
+<div class="container container-0 border rounded">
+    <input type="button" class="btn" value="<-Volver" onclick="goBack()" style="padding: 2px 5px; margin-bottom: 5px; background-color: black; color: white;">
+    <h1 class="h1-fondo">Detalle</h1>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="sec-carousel">
+                    <div id="demo" class="carousel slide" data-bs-ride="carousel">
+                        <!-- Indicators/dots -->
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                        </div>
+                        <!-- The slideshow/carousel -->
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{{pintura.foto.url}}" alt="" class="d-block"
+                                style="width:100%">
+                            </div>
+                        </div>
+                        <!-- Left and right controls/icons -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h2>Precio</h2>
+                    <a class="a-precio">
+                        <p>${{pintura.precio}}</p>
+                    </a>
+                    <div class="centrar"">
+                        <button class=" btn btn-primary boton-pagar" onclick="contar()">Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="container-fluid">
+                <div class="row">
+                    <h2>{{pintura.nombre}}</h2>
+                    <p>{{pintura.descripcion}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenido %}

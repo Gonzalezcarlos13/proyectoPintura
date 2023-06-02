@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos/index.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <title> Base admin</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="">
+                    <img class="img-logo" src="{% static 'img/grupo0.png' %}" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mynavbar">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'IND_ADM' %}">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="{% url 'MAN' %}">Mantenedor</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex">
+                        <div class="p-2">
+                            <span class="numerador">
+                                <input id="numero-escondido" type="text" style="display: none;" value="0">
+                                <p id="numero-carro" style="text-align: center;margin-bottom: 50%;color: white;">
+                                    0
+                                </p>
+                            </span>
+                            <a href="{% url 'CAR' %}"><button style="background-color: transparent;"><img
+                                        src="{% static 'img/shopping-cart-2-line.png' %}" alt="" style="height: 35px;"></button></a>
+                        </div>
+                        <div class="p-2">
+                            <a href="{% url 'REG' %}"><button class="btn btn-primary" type="button">Iniciar
+                                    Sesion</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section>
+            {% block contenido %}
+
+            {% endblock contenido %}
+        </section>
+    </main>
+    <footer>
+        <div class="mt-5 p-3 bg-dark text-white text-center">
+            <p>Footer</p>
+        </div>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

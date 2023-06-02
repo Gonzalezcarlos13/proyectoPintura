@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{%load static%}
+{% block contenido %}
+    {% if mensaje %}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            if ('{{evento}}' == 'Guardado') {
+                Swal.fire('Agregado!','{{mensaje}}','success')
+            }
+            if ('{{evento}}' == 'Error') {
+                Swal.fire('Error!','{{mensaje}}','error')
+            }
+            if ('{{evento}}' == 'PassIncorr') {
+                Swal.fire('Error!','{{mensaje}}','error')
+            }
+        </script>
+    {% endif %}
+    <div class="container-fluid container-0 text-center" style="width: 900px;">
+        <div class="row">
+            <div class="col">
+                <form action="{% url 'REGISTRARSE' %}" method="post">
+                    {% csrf_token %}
+                    <img class="mb-4" src="{% static 'img/grupo0.png' %}" alt="" width="72">
+                    <h1 class="h3 mb-3 fw-normal">Registro de Usuario</h1>
+        
+                    <div class="form-floating">
+                        <input type="text" class="form-control" placeholder="Nombre" id="nombre" name="txtNombre" required>
+                        <label for="nombre">Nombre</label>
+                    </div>
+        
+                    <div class="form-floating">
+                        <input type="text" class="form-control" placeholder="Apellido" id="apellido" name="txtApellido" required>
+                        <label for="apellido">Apellido</label>
+                    </div>
+        
+                    <div class="form-floating">
+                        <input type="text" class="form-control" placeholder="User" id="user" name="txtUser" required>
+                        <label for="user">Usuario</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="email" class="form-control" placeholder="Email" id="mail" name="txtEmail" required>
+                        <label for="mail">Correo</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="contrasena" placeholder="Password" name="txtPass" required>
+                        <label for="contrasena">Contraseña</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="contrasena2" placeholder="Confirmar Password" name="txtPass2" required>
+                        <label for="contrasena2">Confirmar Contraseña</label>
+                    </div>
+                    <input type="submit" class="w-100 btn btn-lg btn-primary" type="submit" value="Registrarse">
+                </form>
+                <p class="mt-5 mb-3 text-muted">&copy; 2023 Todo los derechos reservados</p>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}
