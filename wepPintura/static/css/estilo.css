@@ -1,7 +1,8 @@
 @import url(bootstrap/bootstrap.min.css);
 
-/* Estilos generales del body */
-body {
+
+
+body{
     background: radial-gradient(
         circle at center,
         rgb(252, 196, 105),
@@ -11,123 +12,111 @@ body {
     background-attachment: fixed;
 }
 
-/* Estilos generales del main */
-main {
+main{
     min-height: 100vh;
 }
 
-/* Estilos del logo */
-.img-logo {
+
+.img-logo{
     width: 50px;
 }
-
-/* Contenedor principal del index */
+/*este sera el container del index*/
 .container-s {
-    margin-top: 30px;
+    margin-top: 20px;
     width: 50%;
 }
 
-/* Estilos del título h1 */
-h1 {
+h1{
     text-align: center;
+    
 }
 
-/* Estilos del subtítulo h2 */
-h2 {
-    text-align: left;
+h2{
+    
 }
 
-/* Estilos generales de los párrafos */
 p {
     margin: 0;
 }
 
-/* Estilos para el fondo del título h1 */
-.h1-fondo {
+.h1-fondo{
     font-size: 60px;
     background-color: black;
     border-radius: 10px;
-    color: rgb(221, 220, 220);
+    color:rgb(221, 220, 220);
 }
 
-/* Estilos para el fondo del subtítulo h2 */
-.h2-fondo {
+.h2-fondo{
     font-size: 40px;
     background-color: black;
     border-radius: 10px;
-    color: rgb(221, 220, 220);
+    color:rgb(221, 220, 220);
     margin-bottom: 20px;
 }
+/*container de detalle*/
+.container-0{
+    padding: 10px 20px;
+    background-color: white;
+    margin-top: 20px;
+}
 
-/* Estilos del contenedor de detalle */
-.container-0 {
-    padding: 20px;
+.container-m{
+    padding: 10px 20px;
     background-color: rgb(233, 233, 233);
     margin-top: 20px;
     border-radius: 10px;
     width: 80%;
 }
 
-/* Estilos del contenedor M */
-.container-M {
-    padding: 20px;
-    background-color: rgb(233, 233, 233);
-    margin-top: 20px;
-    width: 50%;
-    border-radius: 10px;
-}
-
-/* Estilos del contenedor mantenedor */
-.container-mantenedor {
+.container-mantenedor{
     padding: 10px 20px;
     background-color: rgb(233, 233, 233);
     margin-top: 20px;
     border-radius: 10px;
 }
 
-/* Estilos para el valor del precio */
-.a-precio {
-    text-align: left;
+/*Este es para darle un estilo al valor del precio*/
+.a-precio{
     font-size: 20px;
     text-decoration: none;
 }
 
-/* Estilos del botón pagar */
-.boton-pagar {
+.boton-pagar{
     width: 50%;
+
 }
 
-/* Estilos del botón enviar */
-.boton-Enviar {
+.boton-Enviar{
     width: 50%;
-}
 
-/* Estilos para centrar elementos */
-.centrar {
+}
+/*Este tiene la funcion de centrar las cosas*/
+.centrar{
     text-align: center;
+    
 }
 
-/* Estilos del footer */
 .footer {
     background: black;
     z-index: 1000;
     bottom: 0;
     padding: 20px 0px;
-}
+  
+  }
 
-/* Estilos del mapa del formulario */
-.mapaS {
+  /*es el mapa del formulario*/
+  .mapaS{
     padding: 10px;
     margin-top: 20px;
-}
+  }
 
-/* Estilos para las columnas del cartan gant */
-.col-4 {
+/*cartan gant*/
+.col-4{
     margin-bottom: 20px;
 }
 
-/* Estilos para el carrito */
-.numerador {
+/*es el carrito*/
+.numerador{
     background-color: rgba(255, 0, 0, 0.5);
     position: absolute;
     width: 20px;
@@ -135,12 +124,10 @@ p {
     border-radius: 50%;
 }
 
-/* Transición de la cortina */
 .cortina {
     transition: 1s;
 }
 
-/* Estilos de la cortina cuando está abierta */
 .cortina-abierta {
     background-color: rgba(0, 0, 0, 0.7);
     width: 100%;
@@ -151,27 +138,60 @@ p {
     z-index: 3;
 }
 
-/* Estilos generales del formulario flotante */
 .form-floating {
     margin: 20px 0px;
 }
 
-/* Estilos para el carousel-inner */
-.carousel-inner {
-    border-radius: 10px;
-}
-
-/* Estilos de las tarjetas y su sombra */
 .pointer-black {
-    transition: 0.5s;
+    transition: 0.3s;
     border: 0px outset black;
     border-radius: 10px;
     box-shadow: 1px 1px 10px 4px;
 }
 
-/* Estilos de las tarjetas al pasar el cursor */
 .pointer-black:hover {
-    transform: scale(1.1);
-    z-index: 1;
+    transform: scale(1.06);
     cursor: pointer;
+    z-index: 1;
+}
+
+.carousel-inner {
+    border-radius: 10px;
+}
+
+.btnMasMenos {
+    background: radial-gradient(rgb(255, 0, 0), rgb(255, 187, 0));
+}
+
+.collapse_carrito {
+    
+}
+
+.collapse_carrito_on {
+    display: none;
+}
+
+.collapse_carrito:hover .collapse_carrito_on {
+    display: block;
+}
+
+.menu_collapse_carrito {
+    position: absolute;
+    width: 400px;
+    height: 500px;
+    top: 57.5px;
+    margin-left: -347px;
+    z-index: 100;
+}
+
+.table_carrito_collapse tr {
+    height: 80px;
+}
+
+.table_carrito_collapse .tr_carr_comp {
+    height: 20px;
+}
+
+.table_carrito_collapse_2 tr {
+    height: 20px;
 }

@@ -52,13 +52,80 @@
                             {% else %}
                             {% endif %}
                             <div class="p-2">
-                                <span class="numerador">
-                                    <input id="numero-escondido" type="text" style="display: none;" value="0">
-                                    <p id="numero-carro" style="text-align: center;margin-bottom: 50%;color: white;">
-                                        0
-                                    </p>
-                                </span>
-                                <a href="{% url 'CAR' %}"><button style="background-color: transparent;"><img src="{% static 'img/shopping-cart-2-line.png' %}" alt="" style="height: 35px;"></button></a>
+                                <div class="collapse_carrito">
+                                    <span class="numerador">
+                                        <input id="numero-escondido" type="text" style="display: none;" value="0">
+                                        <p id="numero-carro" style="text-align: center;margin-bottom: 50%;color: white;">
+                                            0
+                                        </p>
+                                    </span>
+                                    <button style="background-color: transparent;"><img src="{% static 'img/shopping-cart-2-line.png' %}" alt="" style="height: 35px;"></button>
+                                    <div class="collapse_carrito_on">
+                                        <div class="menu_collapse_carrito bg-dark">
+                                            <div class="container-fluid" style="height: 100%;">
+                                                <div class="row" style="height: 100%;">
+                                                    <div class="col-12" style="padding: 10px; height: 100%;">
+                                                        <div class="card table-responsive" style="height: 100%;">
+                                                            <table class="table table_carrito_collapse" style="width: 100%; vertical-align: middle;">
+                                                                <tbody>
+                                                                    {% for item in pinturas %}
+                                                                        {% if item.usuario.username == user.username %}
+                                                                            <tr>
+                                                                                <td style="width: 29%">
+                                                                                    <div style="height: 100%;">
+                                                                                        <img src="{{item.foto.url}}" alt="Card image" style="width: 100%;">
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="width: 40%;">
+                                                                                    <table class="table_carrito_collapse_2">
+                                                                                        <tr>
+                                                                                            <td>{{item.nombre}}</td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>${{item.precio}}</td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </td>
+                                                                                <td style="width: 30%; text-align: center;">
+                                                                                    <button class="btnMasMenos" style="width: 20px; padding: 4px 0px 8px" onclick="decrementValue('{{item.idPintura}}')">
+                                                                                        <p style="line-height: 0.1;">-</p>
+                                                                                    </button>
+                                                                                    <input type="text" value="{{item.cantidad}}" id="stepperInput{{item.idPintura}}" style="width:30%; height: 20px; text-align: center" readonly>
+                                                                                    <button class="btnMasMenos" style="width: 20px; padding: 4px 0px 8px" onclick="incrementValue('{{item.idPintura}}')">
+                                                                                        <p style="line-height: 0.1;">+</p>
+                                                                                    </button>
+                                                                                </td>
+                                                                                <td style="width: 1%;">
+                                                                                    <img src="{% static 'img/papelera_roja.png' %}" alt="">
+                                                                                </td>
+                                                                            </tr>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                    <tr class="tr_carr_comp">
+                                                                        <td colspan="4">
+                                                                            <table style="width: 100%; text-align: center;">
+                                                                                <tr class="tr_carr_comp">
+                                                                                    <td style="width: 50%;">
+                                                                                        <a href="{% url 'CAR' %}">
+                                                                                            <button class="btn btn-primary" style="width: 70%;">Ir al carrito</button>
+                                                                                        </a>
+                                                                                    </td>
+                                                                                    <td style="width: 50%;">
+                                                                                        <button class="btn btn-success" style="width: 70%;">Comprar</button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             {% if user.is_authenticated %}
                                 <div class="p-2">
