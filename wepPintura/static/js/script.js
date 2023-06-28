@@ -1,3 +1,20 @@
+window.onload = function() {
+  let cantidadCarritoActual = document.getElementById("numero-carro");
+  actualizarCarrito(cantidadCarritoActual);
+};
+
+function actualizarCarrito(cantidadCarrito) {
+  fetch("/obtener_cantidad_carrito")
+    .then(response => response.json())
+    .then(data => {
+      var cantidad = data.cantidad;
+      cantidadCarrito.textContent = cantidad;
+    })
+    .catch(error => {
+      console.error("Error al obtener la cantidad del carrito:", error);
+    });
+}
+
 function AbrirCortina() {
   $("#cortina").addClass("cortina-abierta")
 }

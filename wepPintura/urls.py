@@ -19,5 +19,9 @@ urlpatterns = [
     path('logout', cerrar_sesion,name='CERRAR'),
     path('eliminar_pintura/<id>', eliminar_pintura,name='ELIMINAR_PIN'),
     path('modificar/<id>', modificar,name='MODIFICAR'),
+    path('agregar_carrito/<id>', agregar_carrito,name='AGREGAR_CARRITO'),
+    path('quitar_carrito/<id>', quitar_carrito,name='QUITAR_CARRITO'),
+    path('eliminar_carrito/<id>', eliminar_carrito,name='ELIMINAR_CARRITO'),
+    path('obtener_cantidad_carrito', obtener_cantidad_carrito, name='obtener_cantidad_carrito'),
 ]
 

@@ -54,10 +54,7 @@
                             <div class="p-2">
                                 <div class="collapse_carrito">
                                     <span class="numerador">
-                                        <input id="numero-escondido" type="text" style="display: none;" value="0">
-                                        <p id="numero-carro" style="text-align: center;margin-bottom: 50%;color: white;">
-                                            0
-                                        </p>
+                                        <p id="numero-carro"></p>
                                     </span>
                                     <button style="background-color: transparent;"><img src="{% static 'img/shopping-cart-2-line.png' %}" alt="" style="height: 35px;"></button>
                                     <div class="collapse_carrito_on">
@@ -68,39 +65,47 @@
                                                         <div class="card table-responsive" style="height: 100%;">
                                                             <table class="table table_carrito_collapse" style="width: 100%; vertical-align: middle;">
                                                                 <tbody>
-                                                                    {% for item in pinturas %}
-                                                                        {% if item.usuario.username == user.username %}
-                                                                            <tr>
-                                                                                <td style="width: 29%">
-                                                                                    <div style="height: 100%;">
-                                                                                        <img src="{{item.foto.url}}" alt="Card image" style="width: 100%;">
-                                                                                    </div>
-                                                                                </td>
-                                                                                <td style="width: 40%;">
-                                                                                    <table class="table_carrito_collapse_2">
-                                                                                        <tr>
-                                                                                            <td>{{item.nombre}}</td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td>${{item.precio}}</td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </td>
-                                                                                <td style="width: 30%; text-align: center;">
-                                                                                    <button class="btnMasMenos" style="width: 20px; padding: 4px 0px 8px" onclick="decrementValue('{{item.idPintura}}')">
+                                                                {% if request.session.carrito.items %}
+                                                                {% for key, item in request.session.carrito.items %}
+                                                                        <tr>
+                                                                            <td style="width: 29%">
+                                                                                <div style="height: 100%;">
+                                                                                    <img src="{{item.foto}}" alt="Card image" style="width: 100%;">
+                                                                                </div>
+                                                                            </td>
+                                                                            <td style="width: 40%;">
+                                                                                <table class="table_carrito_collapse_2">
+                                                                                    <tr>
+                                                                                        <td>{{item.nombre}}</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>${{item.total}}</td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </td>
+                                                                            <td style="width: 30%; text-align: center;">
+                                                                                <a href="{% url 'QUITAR_CARRITO' item.idPintura %}">
+                                                                                    <button class="btnMasMenos" style="width: 20px; padding: 4px 0px 8px">
                                                                                         <p style="line-height: 0.1;">-</p>
                                                                                     </button>
-                                                                                    <input type="text" value="{{item.cantidad}}" id="stepperInput{{item.idPintura}}" style="width:30%; height: 20px; text-align: center" readonly>
-                                                                                    <button class="btnMasMenos" style="width: 20px; padding: 4px 0px 8px" onclick="incrementValue('{{item.idPintura}}')">
+                                                                                </a>
+        
+                                                                                <input type="text" value="{{item.cantidad}}" id="stepperInput{{item.idPintura}}" style="width:30%; height: 20px; text-align: center" readonly>
+        
+                                                                                <a href="{% url 'AGREGAR_CARRITO' item.idPintura %}">
+                                                                                    <button class="btnMasMenos" style="width: 20px; padding: 4px 0px 8px">
                                                                                         <p style="line-height: 0.1;">+</p>
                                                                                     </button>
-                                                                                </td>
-                                                                                <td style="width: 1%;">
-                                                                                    <img src="{% static 'img/papelera_roja.png' %}" alt="">
-                                                                                </td>
-                                                                            </tr>
-                                                                        {% endif %}
+                                                                                </a>
+                                                                            </td>
+                                                                            <td style="width: 1%;">
+                                                                                <a href="{% url 'ELIMINAR_CARRITO' item.idPintura %}">
+                                                                                    <img src="{% static 'img/papelera roja.png' %}" alt="">
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
                                                                     {% endfor %}
+                                                                    {% endif %}
                                                                     <tr class="tr_carr_comp">
                                                                         <td colspan="4">
                                                                             <table style="width: 100%; text-align: center;">

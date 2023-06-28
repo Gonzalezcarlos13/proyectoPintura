@@ -2,6 +2,9 @@ from django.shortcuts import render
 from .models import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,logout,login as login_aut
+from django.http import JsonResponse
+
+from .carrito import *
 
 # Create your views here.
 def index(request):
@@ -228,3 +231,39 @@ def registrarse(request):
             contexto['mensaje'] = 'Las contraseñas no coinciden'
 
     return render(request, "registrarse.html", contexto)
+
+def agregar_carrito(request,id):
+    carrito = Carrito(request)
+    pintura = Pintura.objects.get(idPintura=id)
+    carrito.agregar(pintura)
+    pintura= Pintura.objects.all()
+    categorias= Categoria.objects.all()
+    contexto={'pinturas':pintura, 'categorias':categorias}
+
+    return render(request,"galeria.html", contexto)
+
+def quitar_carrito(request,id):
+    carrito = Carrito(request)
+    pintura = Pintura.objects.get(idPintura=id)
+    carrito.quitar(pintura)
+    pintura= Pintura.objects.all()
+    categorias= Categoria.objects.all()
+    contexto={'pinturas':pintura, 'categorias':categorias}
+
+    return render(request,"galeria.html", contexto)
+
+def eliminar_carrito(request,id):
+    carrito = Carrito(request)
+    pintura = Pintura.objects.get(idPintura=id)
+    carrito.eliminar(pintura)
+    pintura= Pintura.objects.all()
+    categorias= Categoria.objects.all()
+    contexto={'pinturas':pintura, 'categorias':categorias}
+
+    return render(request,"galeria.html", contexto)
+
+def obtener_cantidad_carrito(request):
+    carrito = Carrito(request)
+    cantidad = carrito.contar_cantidades()
+
+    return JsonResponse({'cantidad': cantidad})

@@ -40,3 +40,4 @@ class Contacto(models.Model):
 
     def str(self) -> str:
         return super().str()
+    
