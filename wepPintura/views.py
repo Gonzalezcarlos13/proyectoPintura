@@ -232,38 +232,41 @@ def registrarse(request):
 
     return render(request, "registrarse.html", contexto)
 
-def agregar_carrito(request,id):
+def agregar_carrito(request, id):
     carrito = Carrito(request)
     pintura = Pintura.objects.get(idPintura=id)
     carrito.agregar(pintura)
-    pintura= Pintura.objects.all()
-    categorias= Categoria.objects.all()
-    contexto={'pinturas':pintura, 'categorias':categorias}
 
-    return render(request,"galeria.html", contexto)
+    return JsonResponse({'msj': 'Agregado!'})
+
 
 def quitar_carrito(request,id):
     carrito = Carrito(request)
     pintura = Pintura.objects.get(idPintura=id)
     carrito.quitar(pintura)
-    pintura= Pintura.objects.all()
-    categorias= Categoria.objects.all()
-    contexto={'pinturas':pintura, 'categorias':categorias}
 
-    return render(request,"galeria.html", contexto)
+    return JsonResponse({'msj': 'Quitado!'})
 
 def eliminar_carrito(request,id):
     carrito = Carrito(request)
     pintura = Pintura.objects.get(idPintura=id)
     carrito.eliminar(pintura)
-    pintura= Pintura.objects.all()
-    categorias= Categoria.objects.all()
-    contexto={'pinturas':pintura, 'categorias':categorias}
+    carrito_data = carrito.listar()
 
-    return render(request,"galeria.html", contexto)
+    return JsonResponse({'msj': 'Eliminado!', 'carrito': carrito_data})
 
 def obtener_cantidad_carrito(request):
     carrito = Carrito(request)
     cantidad = carrito.contar_cantidades()
 
     return JsonResponse({'cantidad': cantidad})
+
+def listar_carrito(request):
+    carrito = Carrito(request)
+    carrito_data = carrito.listar()
+    return JsonResponse({'carrito': carrito_data})
+
+def limpiar_carrito(request):
+    carrito = Carrito(request)
+    carrito.vaciar()
+    return JsonResponse({'msj': 'Limpiado!'})

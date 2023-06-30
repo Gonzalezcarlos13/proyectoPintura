@@ -10,8 +10,8 @@
                         <div class="col-12">
                             <h1 class="h1-fondo">Carrito de compras</h1>
                         </div>
-                        {% for item in pinturas %}
-                            {% if item.usuario.username == user.username %}
+                        {% if request.session.carrito.items %}
+                        {% for key, item in request.session.carrito.items %}
                                 <div class="col-12">
                                     <div class="card p-2">
                                         <div class="table-responsive p-2">
@@ -29,13 +29,29 @@
                                                 <tbody>
                                                     <tr>
                                                         <td style="width:5%; font-size: 26px"><strong>#{{item.idPintura}}</strong></td>
-                                                        <td style="width:25%"><img src="{{item.foto.url}}" alt="Card image" style="object-fit: cover; width: 100%;"></td>
+                                                        <td style="width:25%"><img src="{{item.foto}}" alt="Card image" style="object-fit: cover; width: 100%;"></td>
                                                         <td style="width:30%">{{item.nombre}}</td>
-                                                        <td style="width:12%"><button onclick="decrementValue('{{item.idPintura}}')">-</button><input type="text" value="{{item.cantidad}}" id="stepperInput{{item.idPintura}}" style="width:40px; text-align: center" readonly><button onclick="incrementValue('{{item.idPintura}}')">+</button></td>
-                                                        <td style="width:18%">{{item.precio}}</td>
+                                                        <td style="width: 30%; text-align: center;">
+                                                            <a href="{% url 'QUITAR_CARRITO' item.idPintura %}">
+                                                                <button class="btnMasMenos" style="width: 20px; padding: 4px 0px 8px">
+                                                                    <p style="line-height: 0.1;">-</p>
+                                                                </button>
+                                                            </a>
+
+                                                            <input type="text" value="{{item.cantidad}}" id="stepperInput{{item.idPintura}}" style="width:30%; height: 20px; text-align: center" readonly>
+
+                                                            <a href="{% url 'AGREGAR_CARRITO' item.idPintura %}">
+                                                                <button class="btnMasMenos" style="width: 20px; padding: 4px 0px 8px">
+                                                                    <p style="line-height: 0.1;">+</p>
+                                                                </button>
+                                                            </a>
+                                                        </td>
+                                                        <td style="width:18%">{{item.total}}</td>
                                                         <td style="width:10%">
                                                             <div class="form-group">
-                                                                <input class="form-control btn-danger m-2" type="button" value="Eliminar" onclick="eliminarPintura('{% url 'ELIMINAR_PIN' item.idPintura %}')">
+                                                                <a href="{% url 'ELIMINAR_CARRITO' item.idPintura %}">
+                                                                    <button class="form-control btn-danger m-2">Eliminar</button>
+                                                                </a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -44,8 +60,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            {% endif %}
                         {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>

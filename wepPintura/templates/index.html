@@ -39,6 +39,68 @@
                 </div>
             </div>
         </div>
+        <div class="row m-1 p-3" style="background-color: gray; border-radius: 10px">
+            <div class="container-fluid">
+                <div class="row p-3">
+                    <div class="col">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col" style="background-color: white; border-radius: 10px; margin: 5px 5px 5px 5px; border: outset 3px;">
+                                    <div class="container-fluid">
+                                        <div class="row" style="justify-content: center;">
+                                            <div class="col-12" style="text-align: center;">
+                                                <img src="{% static 'img/img-dolar.png' %}" width="40%" alt="">
+                                            </div>
+                                            <div class="col-6" style="text-align: center; color: #1D75B9; font-weight: bolder; font-size: 38px;" id="valor_dolar">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col" style="background-color: white; border-radius: 10px; margin: 5px 5px 5px 5px; border: outset 3px;">
+                                    <div class="container-fluid">
+                                        <div class="row" style="justify-content: center;">
+                                            <div class="col-12" style="text-align: center;">
+                                                <img src="{% static 'img/img-utm.png' %}" width="40%" alt="">
+                                            </div>
+                                            <div class="col-6" style="text-align: center; color: #00877A; font-weight: bolder; font-size: 38px;" id="valor_utm">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="background-color: white; border-radius: 10px; margin: 5px 5px 5px 5px; border: outset 3px;">
+                                    <div class="container-fluid">
+                                        <div class="row" style="justify-content: center;">
+                                            <div class="col-12" style="text-align: center;">
+                                                <img src="{% static 'img/img-uf.png' %}" width="40%" alt="">
+                                            </div>
+                                            <div class="col-6" style="text-align: center; color: #00877A; font-weight: bolder; font-size: 38px;" id="valor_uf">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col" style="background-color: white; border-radius: 10px; margin: 5px 5px 5px 5px; border: outset 3px;">
+                                    <div class="container-fluid">
+                                        <div class="row" style="justify-content: center;">
+                                            <div class="col-12" style="text-align: center;">
+                                                <img src="{% static 'img/img-euro.png' %}" width="40%" alt="">
+                                            </div>
+                                            <div class="col-6" style="text-align: center; color: #1D75B9; font-weight: bolder; font-size: 38px;" id="valor_euro">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <form action="{% url 'FILTRAR_IND' %}" method="post">
             {% csrf_token %}
             <div class="row m-1 p-3" style="background-color: gray; border-radius: 10px">

@@ -43,9 +43,7 @@
                                 <button class="btn btn-primary boton-pagar" onclick="Comprar()">Comprar</button>
                             </div>
                             <div class="col-6">
-                                <a href="{% url 'AGREGAR_CARRITO' pintura.idPintura %}">
-                                    <button class="btn btn-success boton-pagar">Agregar a carrito</button>
-                                </a>
+                                <button class="btn btn-success boton-pagar" onclick="agregarCarrito('{{pintura.idPintura}}','0')">Agregar a carrito</button>
                             </div>
                         </div>
                     </div>

@@ -26,6 +26,7 @@ class Carrito:
             self.carrito[id]["total"]+=producto.precio
             self.actualizar()
 
+
     def quitar(self, producto):
         id = str(producto.idPintura)
         if id in self.carrito.keys():
@@ -54,3 +55,6 @@ class Carrito:
         for item in self.carrito.values():
             total_cantidad += item.get("cantidad", 0)
         return total_cantidad
+    
+    def listar(self):
+        return self.carrito
