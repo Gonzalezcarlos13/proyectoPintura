@@ -82,17 +82,25 @@ function eliminarCarrito(id) {
   });
 }
 
-function limpiarCarrito() {
+function limpiarCarrito(opcion) {
   fetch("/limpiar_carrito")
   .then(response => response.json())
   .then(data => {
     listarCarrito();
     btnLimpiar.style.display = "none";
-    Swal.fire({
-      icon: 'success',
-      title: 'Bien!',
-      text: 'Se ha limpiado todo el carrito!'
-    })
+    if(opcion == "0"){
+      Swal.fire({
+        icon: 'success',
+        title: 'Bien!',
+        text: 'Se ha limpiado todo el carrito!'
+      })
+    } else {
+      Swal.fire({
+        icon: 'success',
+        title: 'Bien!',
+        text: 'Se ha comprado con exito!'
+      })
+    }
   })
   .catch(error => {
     console.error("Error al limpiar el carrito: ", error);
