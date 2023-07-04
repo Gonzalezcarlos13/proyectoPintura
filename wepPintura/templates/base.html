@@ -52,9 +52,9 @@
                             {% else %}
                             {% endif %}
                             <div class="p-2">
-                                <div class="collapse_carrito">
+                                <div class="collapse_carrito" id="d-flex-carrito">
                                     <span class="numerador">
-                                        <p id="numero-carro"></p>
+                                        <p id="numero-carro" style="text-align: center; color: white;"></p>
                                     </span>
                                     <button style="background-color: transparent;"><img src="{% static 'img/shopping-cart-2-line.png' %}" alt="" style="height: 35px;"></button>
                                     <div class="collapse_carrito_on">
@@ -63,23 +63,38 @@
                                                 <div class="row" style="height: 100%;">
                                                     <div class="col-12" style="padding: 10px; height: 100%;">
                                                         <div class="card table-responsive" style="height: 100%;">
-                                                            <table class="table table_carrito_collapse" style="width: 100%; vertical-align: middle;">
+                                                            <table id="tabla-carrito" class="table table_carrito_collapse" style="width: 100%; vertical-align: middle;">
                                                                 <tbody id="tbody-carrito">
                                                                     
                                                                 </tbody>
                                                             </table>
+                                                            <div class="p-1" id="detalle-carrito" style="display: flex; flex-wrap: wrap; justify-content: center; width: 100%; border-bottom: solid #DEE2E6 1px; margin-bottom: 10px; margin-top: 0px">
+                                                                <div style="display: flex; width: 75%;">
+                                                                    <p style="width: 50%;">Precio Bruto</p>
+                                                                    <p style="width: 50%; text-align: right;" id="precio_bruto"></p>
+                                                                </div>
+                                                                <div style="display: flex; width: 75%;">
+                                                                    <p style="width: 50%;">Bruto+IVA(19%)</p>
+                                                                    <p style="width: 50%; text-align: right;" id="precio_coniva"></p>
+                                                                </div>
+                                                                <div style="display: flex; width: 75%;">
+                                                                    <p style="width: 50%;">Descuento</p>
+                                                                    <p style="width: 50%; text-align: right;" id="porcentaje_descuento"></p>
+                                                                </div>
+                                                                <div style="display: flex; width: 75%; margin-top: 10px; font-weight: bolder; font-size: 18px;">
+                                                                    <p style="width: 50%;">Total</p>
+                                                                    <p style="width: 50%; text-align: right;" id="precio_total"></p>
+                                                                </div>
+                                                            </div>
                                                             <div style="display: flex; width: 100%; justify-content: center;">
-                                                                <div style="width: 50%; text-align: center;" id="btnIrCarrito">
+                                                                <div style="width: 100%; text-align: center;" id="btnIrCarrito">
                                                                     <a href="{% url 'CAR' %}">
                                                                         <button class="btn btn-primary" style="width: 70%;">Ir al carrito</button>
                                                                     </a>
                                                                 </div>
-                                                                <div style="width: 50%; text-align: center;" id="btnComprar">
-                                                                    <button class="btn btn-success" onclick="limpiarCarrito('1')" style="width: 70%;">Comprar</button>
-                                                                </div>
                                                             </div>
                                                             <div id="btnLimpiar" style="width: 100%; text-align: center; display: none;">
-                                                                <button class="btn btn-danger" onclick="limpiarCarrito('0')" style="width: 70%; margin-top: 15px; margin-bottom: 20px;">Limpiar Carrito</button>
+                                                                <button class="btn btn-danger" onclick="limpiarCarrito()" style="width: 70%; margin-top: 15px; margin-bottom: 20px;">Limpiar Carrito</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -160,5 +175,8 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="{% static 'js/script.js' %}"></script>
         <script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
+        {% block js %}
+
+        {% endblock js %}
     </body>
 </html>

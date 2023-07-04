@@ -51,6 +51,9 @@
                                             <div class="col-12" style="text-align: center;">
                                                 <img src="{% static 'img/img-dolar.png' %}" width="40%" alt="">
                                             </div>
+                                            <div class="col-12" style="text-align: center; color: #1D75B9; font-weight: bolder; font-size: 38px;">
+                                                Dolar
+                                            </div>
                                             <div class="col-6" style="text-align: center; color: #1D75B9; font-weight: bolder; font-size: 38px;" id="valor_dolar">
                                                 
                                             </div>
@@ -62,6 +65,9 @@
                                         <div class="row" style="justify-content: center;">
                                             <div class="col-12" style="text-align: center;">
                                                 <img src="{% static 'img/img-utm.png' %}" width="40%" alt="">
+                                            </div>
+                                            <div class="col-12" style="text-align: center; color: #00877A; font-weight: bolder; font-size: 38px;">
+                                                UTM
                                             </div>
                                             <div class="col-6" style="text-align: center; color: #00877A; font-weight: bolder; font-size: 38px;" id="valor_utm">
                                                 
@@ -77,6 +83,9 @@
                                             <div class="col-12" style="text-align: center;">
                                                 <img src="{% static 'img/img-uf.png' %}" width="40%" alt="">
                                             </div>
+                                            <div class="col-12" style="text-align: center; color: #00877A; font-weight: bolder; font-size: 38px;">
+                                                UF
+                                            </div>
                                             <div class="col-6" style="text-align: center; color: #00877A; font-weight: bolder; font-size: 38px;" id="valor_uf">
                                                 
                                             </div>
@@ -88,6 +97,9 @@
                                         <div class="row" style="justify-content: center;">
                                             <div class="col-12" style="text-align: center;">
                                                 <img src="{% static 'img/img-euro.png' %}" width="40%" alt="">
+                                            </div>
+                                            <div class="col-12" style="text-align: center; color: #1D75B9; font-weight: bolder; font-size: 38px;">
+                                                Euro
                                             </div>
                                             <div class="col-6" style="text-align: center; color: #1D75B9; font-weight: bolder; font-size: 38px;" id="valor_euro">
                                                 
@@ -185,3 +197,6 @@
         </form>
     </div>
 {% endblock contenido %}
+{% block js %}
+    <script src="{% static 'js/index.js' %}"></script>
+{% endblock js %}

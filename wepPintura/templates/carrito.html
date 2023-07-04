@@ -6,65 +6,45 @@
         <div class="row">
             <div class="col-12">
                 <div class="container-fluid container-mantenedor">
-                    <div class="row">
-                        <div class="col-12">
-                            <h1 class="h1-fondo">Carrito de compras</h1>
+                    <div class="row" id="divRowCarrito">
+                        
+                    </div>
+                    <div class="p-2" id="detalle-carrito2" style="display: flex; flex-wrap: wrap; justify-content: center; width: 100%; border-bottom: solid #DEE2E6 1px; margin-bottom: 10px; margin-top: 0px">
+                        <div style="display: flex; width: 75%;">
+                            <p style="width: 50%;">Cantidad Productos</p>
+                            <p style="width: 50%; text-align: right;" id="cantidad_carrito2"></p>
                         </div>
-                        {% if request.session.carrito.items %}
-                        {% for key, item in request.session.carrito.items %}
-                                <div class="col-12">
-                                    <div class="card p-2">
-                                        <div class="table-responsive p-2">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID</th>
-                                                        <th>Imagen</th>
-                                                        <th>Nombre</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Precio</th>
-                                                        <th>Acción</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td style="width:5%; font-size: 26px"><strong>#{{item.idPintura}}</strong></td>
-                                                        <td style="width:25%"><img src="{{item.foto}}" alt="Card image" style="object-fit: cover; width: 100%;"></td>
-                                                        <td style="width:30%">{{item.nombre}}</td>
-                                                        <td style="width: 30%; text-align: center;">
-                                                            <a href="{% url 'QUITAR_CARRITO' item.idPintura %}">
-                                                                <button class="btnMasMenos" style="width: 20px; padding: 4px 0px 8px">
-                                                                    <p style="line-height: 0.1;">-</p>
-                                                                </button>
-                                                            </a>
-
-                                                            <input type="text" value="{{item.cantidad}}" id="stepperInput{{item.idPintura}}" style="width:30%; height: 20px; text-align: center" readonly>
-
-                                                            <a href="{% url 'AGREGAR_CARRITO' item.idPintura %}">
-                                                                <button class="btnMasMenos" style="width: 20px; padding: 4px 0px 8px">
-                                                                    <p style="line-height: 0.1;">+</p>
-                                                                </button>
-                                                            </a>
-                                                        </td>
-                                                        <td style="width:18%">{{item.total}}</td>
-                                                        <td style="width:10%">
-                                                            <div class="form-group">
-                                                                <a href="{% url 'ELIMINAR_CARRITO' item.idPintura %}">
-                                                                    <button class="form-control btn-danger m-2">Eliminar</button>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                        {% endfor %}
-                        {% endif %}
+                        <div style="display: flex; width: 75%;">
+                            <p style="width: 50%;">Precio Bruto</p>
+                            <p style="width: 50%; text-align: right;" id="precio_bruto2"></p>
+                        </div>
+                        <div style="display: flex; width: 75%;">
+                            <p style="width: 50%;">Bruto+IVA(19%)</p>
+                            <p style="width: 50%; text-align: right;" id="precio_coniva2"></p>
+                        </div>
+                        <div style="display: flex; width: 75%;">
+                            <p style="width: 50%;">Descuento</p>
+                            <p style="width: 50%; text-align: right;" id="porcentaje_descuento2"></p>
+                        </div>
+                        <div style="display: flex; width: 75%; margin-top: 10px; font-weight: bolder; font-size: 18px;">
+                            <p style="width: 50%;">Total</p>
+                            <p style="width: 50%; text-align: right;" id="precio_total2"></p>
+                        </div>
+                    </div>
+                    <div style="display: flex; width: 100%; justify-content: center;">
+                        <div style="width: 100%; text-align: center;" id="btnIrCarrito2">
+                            <button class="btn btn-success" id="btnComprar" style="width: 70%;">Comprar</button>
+                        </div>
+                    </div>
+                    <div id="btnLimpiar2" style="width: 100%; text-align: center; display: none;">
+                        <button class="btn btn-danger" onclick="limpiarCarrito()" style="width: 70%; margin-top: 15px; margin-bottom: 20px;">Limpiar Carrito</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 {% endblock contenido %}
+
+{% block js %}
+    <script src="{% static 'js/carritoPage.js' %}"></script>
+{% endblock js %}

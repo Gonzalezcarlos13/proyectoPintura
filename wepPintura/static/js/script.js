@@ -1,12 +1,23 @@
 window.onload = function() {
   listarCarrito();
-  cargarMoneda();
-};
+  formatearValor();
+}
+
+
+function formatearValor() {
+  let a_precio = document.getElementsByClassName("a-precio");
+
+  for (let i = 0; i < a_precio.length; i++) {
+    let precio = parseInt(a_precio[i].textContent.replace('$','')).toLocaleString();
+    a_precio[i].textContent = "$" + precio;
+  }
+}
 
 function actualizarCantidadCarrito() {
+  let tablaCarrito = document.getElementById("tabla-carrito");
+  let listaCarrito = document.getElementById("tbody-carrito");
+  let detalleCarrito = document.getElementById("detalle-carrito");
   let btnLimpiar = document.getElementById("btnLimpiar");
-  let btnComprar = document.getElementById("btnComprar");
-  let btnIrCarrito = document.getElementById("btnIrCarrito");
   fetch("/obtener_cantidad_carrito")
   .then(response => response.json())
   .then(data => {
@@ -15,12 +26,19 @@ function actualizarCantidadCarrito() {
     cantidadCarrito.textContent = cantidad;
     if(cantidad < 1) {
       btnLimpiar.style.display = "none";
-      btnComprar.style.display = "none";
-      btnIrCarrito.style.width = "100%";
+      tablaCarrito.style.marginTop = "30%";
+      detalleCarrito.style.marginTop = "30%";
+      listaCarrito.style.fontSize = "25px";
+      listaCarrito.style.fontWeight = "bolder";
+      listaCarrito.style.textAlign = "center";
+      listaCarrito.textContent = "No hay productos en el carrito";
     } else {
       btnLimpiar.style.display = "block";
-      btnComprar.style.display = "block";
-      btnIrCarrito.style.width = "50%";
+      tablaCarrito.style.marginTop = "0";
+      detalleCarrito.style.marginTop = "0";
+      listaCarrito.style.fontSize = "15px";
+      listaCarrito.style.fontWeight = "";
+      listaCarrito.style.textAlign = "";
     }
   })
   .catch(error => {
@@ -39,6 +57,8 @@ function agregarCarrito(id, tipoAgregar) {
         title: 'Bien!',
         text: 'Se agrego producto a carrito!'
       })
+    } else if( tipoAgregar == "2") {
+      listarCarritoPage();
     }
   })
   .catch(error => {
@@ -62,6 +82,8 @@ function quitarCarrito(id, tipoAgregar) {
         title: 'Bien!',
         text: 'Se quitó producto del carrito!'
       })
+    } else if( tipoAgregar == "2") {
+      listarCarritoPage();
     }
   })
   .catch(error => {
@@ -70,11 +92,16 @@ function quitarCarrito(id, tipoAgregar) {
   });
 }
 
-function eliminarCarrito(id) {
+function eliminarCarrito(id, tipoEliminar) {
   fetch("/eliminar_carrito/"+id)
   .then(response => response.json())
   .then(data => {
     listarCarrito();
+    if( tipoEliminar == "0") {
+
+    } else if( tipoEliminar == "1") {
+      listarCarritoPage();
+    }
   })
   .catch(error => {
     console.error("Error al eliminar producto a carrito: ", error);
@@ -82,25 +109,17 @@ function eliminarCarrito(id) {
   });
 }
 
-function limpiarCarrito(opcion) {
+function limpiarCarrito() {
   fetch("/limpiar_carrito")
   .then(response => response.json())
   .then(data => {
     listarCarrito();
     btnLimpiar.style.display = "none";
-    if(opcion == "0"){
-      Swal.fire({
-        icon: 'success',
-        title: 'Bien!',
-        text: 'Se ha limpiado todo el carrito!'
-      })
-    } else {
-      Swal.fire({
-        icon: 'success',
-        title: 'Bien!',
-        text: 'Se ha comprado con exito!'
-      })
-    }
+    Swal.fire({
+      icon: 'success',
+      title: 'Bien!',
+      text: 'Se ha limpiado todo el carrito!'
+    })
   })
   .catch(error => {
     console.error("Error al limpiar el carrito: ", error);
@@ -114,6 +133,14 @@ function limpiarCarrito(opcion) {
 
 function listarCarrito() {
   let listaCarrito = document.getElementById("tbody-carrito");
+  let divDescuento = document.getElementById("porcentaje_descuento");
+  let divTotal = document.getElementById("precio_total");
+  let divPrecioConIva = document.getElementById("precio_coniva");
+  let divPrecioBruto = document.getElementById("precio_bruto");
+  let precio_bruto = 0;
+  let precio_coniva = 0;
+  let descuento = 50;
+  let totalFinal = 0;
   fetch("/listar_carrito")
   .then(response => response.json())
   .then(data => {
@@ -125,6 +152,8 @@ function listarCarrito() {
       let nombre = item.nombre;
       let total = item.total;
       let cantidad = item.cantidad;
+
+      totalFinal += total;
 
       let nuevoTr = document.createElement("tr");
       nuevoTr.id = "item_carrito" + idPintura;
@@ -141,29 +170,26 @@ function listarCarrito() {
                   <td>${nombre}</td>
               </tr>
               <tr>
-                  <td>${total}</td>
+                  <td class="item_carrito">$${total.toLocaleString()}</td>
               </tr>
           </table>
         </td>
-        <td style="width: 30%; text-align: center;">
-          <button class="btnMasMenos" onclick="quitarCarrito('${item.idPintura}','1')" style="width: 20px; padding: 4px 0px 8px">
-              <p style="line-height: 0.1;">-</p>
-          </button>
-      
-          <input type="text" value="${cantidad}" id="stepperInput${item.idPintura}" style="width:30%; height: 20px; text-align: center" readonly>
-      
-          <button class="btnMasMenos" onclick="agregarCarrito('${item.idPintura}','1')" style="width: 20px; padding: 4px 0px 8px">
-              <p style="line-height: 0.1;">+</p>
-          </button>
-        </td>
+        <td style="width:30%"><button class="btnMasMenos" onclick="quitarCarrito('${item.idPintura}','1')">-</button><input type="text" value="${cantidad}" id="stepperInput{{item.idPintura}}" style="width:30px; text-align: center" readonly><button class="btnMasMenos" onclick="agregarCarrito('${item.idPintura}','1')">+</button></td>
         <td style="width: 1%;">
-          <img src="http://127.0.0.1:8000/static/img/papelera roja.png" alt="" style="cursor:pointer;" onclick="eliminarCarrito('${item.idPintura}')">
+          <img src="http://127.0.0.1:8000/static/img/papelera roja.png" alt="" style="cursor:pointer;" onclick="eliminarCarrito('${item.idPintura}','0')">
         </td>
       `;
 
       // Agregar el nuevo elemento <tr> a la tabla
       listaCarrito.appendChild(nuevoTr);
     }
+    precio_bruto = (parseInt(totalFinal) - ((parseInt(totalFinal) * 19)/100)).toString();
+    precio_coniva = totalFinal;
+    totalFinal = (parseInt(totalFinal) - ((parseInt(totalFinal) * parseInt(descuento))/100)).toString();
+    divPrecioBruto.textContent = ": $" + parseInt(precio_bruto).toLocaleString();
+    divPrecioConIva.textContent = ": $" + parseInt(precio_coniva).toLocaleString();
+    divDescuento.textContent = ": " + descuento + "%";
+    divTotal.textContent = ": $" + parseInt(totalFinal).toLocaleString();
     actualizarCantidadCarrito();
   })
   .catch(error => {
@@ -311,10 +337,10 @@ function cargarMoneda() {
     let euro = data.euro.valor;
     let bitcoin = data.bitcoin.valor;
 
-    divDolar.textContent = "$" + dolar;
-    divUtm.textContent = "$" + utm;
-    divUf.textContent = "$" + uf;
-    divEuro.textContent = "$" + euro;
+    divDolar.textContent = "$" + dolar.toLocaleString();
+    divUtm.textContent = "$" + utm.toLocaleString();
+    divUf.textContent = "$" + uf.toLocaleString();
+    divEuro.textContent = "$" + euro.toLocaleString();
   })
   .catch(error => {
     console.error("Error al obtener el tipo de cambio:", error);
