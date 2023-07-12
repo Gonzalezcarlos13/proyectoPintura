@@ -3,6 +3,7 @@ from .models import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,logout,login as login_aut
 from django.http import JsonResponse
+from django.contrib import messages
 
 from .carrito import *
 
@@ -61,6 +62,22 @@ def index_admin(request):
     return render(request,"index_admin.html")
 
 def mantenedor(request):
+    categorias= Categoria.objects.all()
+    artistas= Artista.objects.all()
+    pinturas= Pintura.objects.all()
+    contexto={'categorias':categorias, 'artistas':artistas, 'pinturas':pinturas}
+    nombreUsuario = request.user.username
+    
+    if nombreUsuario == "":
+        pintura= Pintura.objects.order_by("idPintura")[:3]
+        pintura2= Pintura.objects.order_by("idPintura")
+        categoria= Categoria.objects.all()
+        alerta= "Esta prohibido ingresar sin permisos de usuario, lo sentimos!"
+        messages.warning(request, alerta)
+        contexto={'pinturas':pintura, 'pinturas2':pintura2, 'categorias':categoria}
+
+        return render(request,"index.html", contexto)
+    
     if request.POST:
         nombre = request.POST.get("nombre")
         nombreArtista = request.POST.get("cbxArtista")
@@ -72,7 +89,7 @@ def mantenedor(request):
         user = request.POST.get("hiddenUser")
         categoria = Categoria.objects.get(nombre=nombreCategoria)
         artista = Artista.objects.get(nombre=nombreArtista)
-        usuario = User.objects.get(username=user)
+        usuario = User.objects.get(username=user).first()
 
         if foto is not None :
             cuadro = Pintura(
@@ -96,11 +113,8 @@ def mantenedor(request):
                 usuario = usuario
             )
         cuadro.save()
-    categorias= Categoria.objects.all()
-    artistas= Artista.objects.all()
-    pinturas= Pintura.objects.all()
-    contexto={'categorias':categorias, 'artistas': artistas, 'pinturas': pinturas}
-    return render(request,"mantenedor.html", contexto)
+        
+    return render(request, "mantenedor.html", contexto)
 
 def buscar_nombre(request):
     nombre = request.POST.get("txtNombre")
