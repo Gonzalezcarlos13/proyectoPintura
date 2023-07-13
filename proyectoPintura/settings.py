@@ -81,6 +81,17 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+ #    "default": {
+ #        "ENGINE": "django.db.backends.oracle",
+  #       "NAME": "xe",
+   #      "USER": "C##CARLOS",
+   #      "PASSWORD": "12345",
+   #      "HOST": "localhost",
+   #      "PORT": "1521",
+   #  }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

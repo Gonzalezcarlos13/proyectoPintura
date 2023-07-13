@@ -89,7 +89,7 @@ def mantenedor(request):
         user = request.POST.get("hiddenUser")
         categoria = Categoria.objects.get(nombre=nombreCategoria)
         artista = Artista.objects.get(nombre=nombreArtista)
-        usuario = User.objects.get(username=user).first()
+        usuario = User.objects.get(username=user)
 
         if foto is not None :
             cuadro = Pintura(
